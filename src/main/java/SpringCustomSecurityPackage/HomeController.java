@@ -44,6 +44,12 @@ public class HomeController {
         else return "recruiterlogin";
     }
 
+    @RequestMapping(value="/seekerlogin", method = RequestMethod.GET)
+    public String seeker(Model model){
+        model.addAttribute(new Job());
+        return "seekerlogin";
+    }
+
     @RequestMapping(value="/vacancy", method = RequestMethod.GET)
     public String jobPostGet(Model model){
         model.addAttribute(new Job());
@@ -56,6 +62,22 @@ public class HomeController {
         jobRepository.save(job);
         return "recruiterlogin";
     }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)// , params={"company"} to use a text box for two buttons named "name and comapny"
+    public String SearchByName(Model model){
+        model.addAttribute(new Job());
+        return "search";
+    }
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String SearchPostName(@ModelAttribute Job job, Model model){
+        String title = job.getTitle();
+        Iterable<Job> newVal = jobRepository.findByTitle(title);
+        model.addAttribute("newValue", newVal);
+        return "displaySearch";
+    }
+
+
+
 
     @RequestMapping(value="/register", method = RequestMethod.GET)
     public String showRegistrationPage(Model model){
