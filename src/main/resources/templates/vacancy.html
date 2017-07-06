@@ -14,7 +14,7 @@
 <div class="container">
     <br /><br /><br />
     <h4>New Vacancy</h4>
-    <form action="#" th:action="@{/newjob}" th:object="${job}" method="post">
+    <form action="#" th:action="@{/vacancy}" th:object="${job}" method="post">
         <div class="form-group">
             <label for="title">title </label>
             <input type="text" class="form-control" id="title" placeholder="title" th:field="*{title}" />

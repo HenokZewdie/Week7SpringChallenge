@@ -44,12 +44,12 @@ public class HomeController {
         else return "recruiterlogin";
     }
 
-    @RequestMapping(value="/newjob", method = RequestMethod.GET)
+    @RequestMapping(value="/vacancy", method = RequestMethod.GET)
     public String jobPostGet(Model model){
         model.addAttribute(new Job());
-        return "redirect:/newjob";
+        return "vacancy";
     }
-    @RequestMapping(value="/newjob", method = RequestMethod.POST)
+    @RequestMapping(value="/vacancy", method = RequestMethod.POST)
     public String potJob(@ModelAttribute Job job, Model model, Principal principal){
         job.setDate(new Date());
         job.setPostedBy(principal.getName());
