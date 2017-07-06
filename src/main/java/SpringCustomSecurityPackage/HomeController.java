@@ -44,14 +44,6 @@ public class HomeController {
         else return "recruiterlogin";
     }
 
-    /*@RequestMapping(value="/jobseeker", method = RequestMethod.GET)
-    public String seeker(Model model){
-        model.addAttribute(new Job());
-        return "jobseeker";
-    }*/
-
-
-
     @RequestMapping(value="/vacancy", method = RequestMethod.GET)
     public String jobPostGet(Model model){
         model.addAttribute(new Job());
@@ -65,18 +57,22 @@ public class HomeController {
         return "recruiterlogin";
     }
 
-    @RequestMapping(value = "/jobseeker", method = RequestMethod.GET)// , params={"company"} to use a text box for two buttons named "name and comapny"
+    @RequestMapping(value = "/jobseeker", method = RequestMethod.GET)
     public String SearchByName(Model model){
-        model.addAttribute(new Job());
+        model.addAttribute("job",new Job());
         return "jobseeker";
     }
     @RequestMapping(value = "/jobseeker", method = RequestMethod.POST)
     public String SearchPostName(@ModelAttribute Job job, Model model){
-        String newtitle = job.getTitle();
-        System.out.println(newtitle);
-        Iterable<Job> newVal = jobRepository.findByTitle(newtitle);
-        model.addAttribute("newValue", newVal);
-        return "displaySearch";
+        String searchtitle = job.getTitle();
+        System.out.println(searchtitle);
+        Iterable<Job> iterateValue = jobRepository.findByTitle(searchtitle);
+        model.addAttribute("SessionSearch", iterateValue);
+        Iterator<Job> test = iterateValue.iterator();
+        while(test.hasNext()){
+            System.out.println(test.next().getEmployer());
+        }
+        return "display";
     }
 
 
