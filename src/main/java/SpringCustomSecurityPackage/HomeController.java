@@ -40,15 +40,17 @@ public class HomeController {
         String emailSession = user.getEmail();
         user = userRepository.findByUsername(emailSession);
         String typeRole = user.getUserType();
-        if(typeRole.equalsIgnoreCase("seeker")){return "seekerlogin";}
+        if(typeRole.equalsIgnoreCase("seeker")){return "redirect:/jobseeker";}
         else return "recruiterlogin";
     }
 
-    @RequestMapping(value="/seekerlogin", method = RequestMethod.GET)
+    /*@RequestMapping(value="/jobseeker", method = RequestMethod.GET)
     public String seeker(Model model){
         model.addAttribute(new Job());
-        return "seekerlogin";
-    }
+        return "jobseeker";
+    }*/
+
+
 
     @RequestMapping(value="/vacancy", method = RequestMethod.GET)
     public String jobPostGet(Model model){
@@ -63,15 +65,16 @@ public class HomeController {
         return "recruiterlogin";
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)// , params={"company"} to use a text box for two buttons named "name and comapny"
+    @RequestMapping(value = "/jobseeker", method = RequestMethod.GET)// , params={"company"} to use a text box for two buttons named "name and comapny"
     public String SearchByName(Model model){
         model.addAttribute(new Job());
-        return "search";
+        return "jobseeker";
     }
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @RequestMapping(value = "/jobseeker", method = RequestMethod.POST)
     public String SearchPostName(@ModelAttribute Job job, Model model){
-        String title = job.getTitle();
-        Iterable<Job> newVal = jobRepository.findByTitle(title);
+        String newtitle = job.getTitle();
+        System.out.println(newtitle);
+        Iterable<Job> newVal = jobRepository.findByTitle(newtitle);
         model.addAttribute("newValue", newVal);
         return "displaySearch";
     }
